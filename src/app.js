@@ -1,9 +1,13 @@
 import { API_BASE_URL } from './constants.js';
 import { fetchJSON } from './api.js';
+import { initPage } from './pages/mainPage.js';
+import { fetchAndPopulateSanskritAsanas } from './api.js';
 
 const loadApp = async () => {
+  initPage();
   try {
-    await fetchJSON(API_BASE_URL);
+    const data = await fetchJSON(API_BASE_URL);
+    await fetchAndPopulateSanskritAsanas(data);
   } catch (error) {
     console.log(error);
   }
