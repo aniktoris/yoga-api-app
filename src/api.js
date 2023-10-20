@@ -1,4 +1,9 @@
-import { SANSKRIT_NAMES_BUTTON_ID, SELECT_ID } from './constants.js';
+import {
+  SANSKRIT_NAMES_BUTTON_ID,
+  SELECT_ID,
+  INPUT_ID,
+  SUGGESTION_ID,
+} from './constants.js';
 
 export async function fetchJSON(url) {
   const response = await fetch(url);
@@ -14,7 +19,6 @@ export async function fetchAndPopulateSanskritAsanas(data) {
   const sanskritButtonElement = document.getElementById(
     SANSKRIT_NAMES_BUTTON_ID
   );
-  sanskritButtonElement.classList.add('sanskrit-button');
 
   const selectElement = document.getElementById(SELECT_ID);
 
@@ -31,23 +35,26 @@ export async function fetchAndPopulateSanskritAsanas(data) {
         optionElement.textContent = asana.sanskrit_name_adapted;
       });
       displayFromDropdown(dataPoses);
+      displayMatches(dataPoses);
     } catch (error) {
       console.log(error);
     }
   });
 }
 
-export function displayFromDropdown(dataPoses) {
+let displayedInfoDropDown = null;
+let displayedInfoSearch = null;
+
+function displayFromDropdown(dataPoses) {
   const selectElement = document.getElementById(SELECT_ID);
-  let displayedInfo = null;
 
   selectElement.addEventListener('change', () => {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const selectedTranslation = selectedOption.value;
 
     if (selectedTranslation) {
-      if (displayedInfo) {
-        displayedInfo.remove();
+      if (displayedInfoDropDown) {
+        displayedInfoDropDown.remove();
       }
 
       const translationDiv = document.createElement('div');
@@ -72,7 +79,50 @@ export function displayFromDropdown(dataPoses) {
 
       document.body.appendChild(translationDiv);
 
-      displayedInfo = translationDiv;
+      if (displayedInfoSearch) {
+        displayedInfoSearch.remove();
+      }
+
+      displayedInfoDropDown = translationDiv;
+    }
+  });
+}
+
+function findMatches(dataPoses, typedWord) {
+  return dataPoses.filter((asana) => {
+    const regex = new RegExp(typedWord, 'gi');
+    return asana.english_name.match(regex);
+  });
+}
+
+function displayMatches(dataPoses) {
+  const searchInput = document.getElementById(INPUT_ID);
+  const suggestions = document.getElementById(SUGGESTION_ID);
+
+  searchInput.addEventListener('input', () => {
+    const typedWord = searchInput.value;
+
+    const matchArray = findMatches(dataPoses, typedWord);
+    const resultsArray = matchArray
+      .map((asana) => {
+        return `
+        <li>
+        <span>${asana.english_name}. ${asana.pose_description}</span>
+        <img src="${asana.url_svg_alt}" class="image-black-figures">
+        </li>
+      `;
+      })
+      .join('');
+
+    if (displayedInfoDropDown) {
+      displayedInfoDropDown.remove();
+    }
+
+    displayedInfoSearch = suggestions;
+    displayedInfoSearch.innerHTML = resultsArray;
+
+    if (!typedWord) {
+      suggestions.innerHTML = '';
     }
   });
 }
