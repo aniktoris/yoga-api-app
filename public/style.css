@@ -1,6 +1,22 @@
+*{
+  font-family: 'Poppins', sans-serif;
+
+}
+body{
+}
+
+.sanskrit-button{
+}
+
+.select-dropdown{
+}
+
+.search{
+}
+
 .dropdown-image{
-  width: 300px;
-  height: 300px;
+  width: 40vh;
+  height: 40vh;
 }
 
 .suggestions li{
@@ -8,6 +24,38 @@
 }
 
 .image-black-figures{
-  width: 200px;
-  height: 200px;
+  width: 20vh;
+  height: 20vh;
+}
+
+.image-color-figures{
+  width: 30%;
+  height: auto;
+  float: right;
+}
+
+.categories-list{
+  display: flex;
+  border: 10px solid goldenrod;
+  height: 50vh;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-left: 5px;
+}
+
+.categories-list li{
+  list-style: none;
+  width: calc(33.33% - 20px);
+  align-items: center;
+}
+
+.separate-class{
+  display: flex;
+}
+
+.category-description{
+  font-size: small;
+  width: 70%;
+  flex: 1;
 }
