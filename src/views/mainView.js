@@ -26,6 +26,7 @@ export const createPageElement = () => {
     </div>
   </div>
   <ul id="${SUGGESTION_ID}" class="suggestions">
+  <li></li>
   </ul>
   `;
   return element;

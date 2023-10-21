@@ -112,6 +112,7 @@ function displayFromDropdown(dataPoses) {
       );
 
       const poseBenefits = document.createElement('p');
+      poseBenefits.classList.add('pose-benefits');
       poseBenefits.textContent = `Pose Benefits: ${selectedAsana.pose_benefits}`;
 
       const poseImage = document.createElement('img');
