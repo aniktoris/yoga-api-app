@@ -14,16 +14,20 @@ export const createPageElement = () => {
       <li>categories will be here</li>
     </ul>
   </div>
-  <button id="${SANSKRIT_NAMES_BUTTON_ID}" class="sanskrit-button"> 
-    Get Started with Yoga! 
-  </button>
-  <select id="${SELECT_ID}" class="select-dropdown"></select>
-  <form class="search-form">
-    <input id="${INPUT_ID}" type="text" class="search" placeholder="Search for a yoga asana..." value="">
-      <ul id="${SUGGESTION_ID}" class="suggestions">
-        <li></li>
-      </ul>
-  </form>
+  <div class="parent-container">
+    <div class="container-bars">
+      <button id="${SANSKRIT_NAMES_BUTTON_ID}" class="sanskrit-button"> 
+        Get Started with Yoga Bliss! 
+      </button>
+      <select id="${SELECT_ID}" class="select-dropdown"></select>
+      <form class="search-form">
+        <input id="${INPUT_ID}" type="text" class="search" placeholder="Search for yoga asana..." value="">  
+      </form>
+    </div>
+  </div>
+  <ul id="${SUGGESTION_ID}" class="suggestions">
+  <li></li>
+  </ul>
   `;
   return element;
 };

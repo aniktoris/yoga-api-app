@@ -45,7 +45,7 @@ export async function fetchAndDisplayCategories(data) {
         return `
         <li>
         <span class="category-name">${category.category_name}</span>
-        <div class="separate-class">
+        <div class="description-image">
         <p class="category-description">${category.category_description}</p>
         <img src="${category.poses[0].url_png}" class="image-color-figures">
         </div>
@@ -102,6 +102,7 @@ function displayFromDropdown(dataPoses) {
       }
 
       const translationDiv = document.createElement('div');
+      translationDiv.classList.add('translation-div');
 
       const translation = document.createElement('p');
       translation.textContent = `Translation name: ${selectedTranslation}`;
@@ -111,6 +112,7 @@ function displayFromDropdown(dataPoses) {
       );
 
       const poseBenefits = document.createElement('p');
+      poseBenefits.classList.add('pose-benefits');
       poseBenefits.textContent = `Pose Benefits: ${selectedAsana.pose_benefits}`;
 
       const poseImage = document.createElement('img');

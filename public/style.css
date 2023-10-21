@@ -2,17 +2,46 @@
   font-family: 'Poppins', sans-serif;
 
 }
-/* body{
+body{
+  background-color:  #f3e7de;
 }
 
 .sanskrit-button{
+  background-color:  #ba7a68;
+  border: none;
+  color: white;
 }
 
-.select-dropdown{
+.translation-div, .suggestions{
+  background-color: #ccc2b6;
+  justify-content: space-between;
+  margin: 20px;
+  border-radius: 30px;
+  display: flex;
+  padding: 10px;
+  max-width: 100%;
 }
 
-.search{
-} */
+.suggestions{
+  flex-wrap: wrap;
+}
+
+.pose-benefits{
+  width: 600px;
+  margin-right: 40px;
+}
+
+.parent-container{
+  text-align: center;
+}
+
+.container-bars{
+  display: inline-flex;
+  justify-content: center;
+  align-items: stretch;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
 
 .dropdown-image{
   width: 40vh;
@@ -26,6 +55,7 @@
 .image-black-figures{
   width: 20vh;
   height: 20vh;
+  display: flex;
 }
 
 .image-color-figures{
@@ -36,12 +66,14 @@
 
 .categories-list{
   display: flex;
-  border: 10px solid goldenrod;
   height: 50vh;
   flex-wrap: wrap;
   justify-content: space-between;
   flex-direction: row;
   padding-left: 5px;
+  margin: 20px;
+  background-color:  #d0d5d2;
+  border-radius: 30px;
 }
 
 .categories-list li{
@@ -50,7 +82,7 @@
   align-items: center;
 }
 
-.separate-class{
+.description-image{
   display: flex;
 }
 
