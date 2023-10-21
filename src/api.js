@@ -3,6 +3,7 @@ import {
   SELECT_ID,
   INPUT_ID,
   SUGGESTION_ID,
+  CATEGORIES_ID,
 } from './constants.js';
 
 export async function fetchJSON(url) {
@@ -13,6 +14,49 @@ export async function fetchJSON(url) {
   const jsonData = await response.json();
   console.log(jsonData);
   return jsonData;
+}
+
+export async function fetchAndDisplayCategories(data) {
+  const categories = document.getElementById(CATEGORIES_ID);
+  const uniqueImages = [];
+  const filteredCategories = [];
+
+  try {
+    const categoriesData = await fetchJSON(data.categories);
+    const categoriesArray = categoriesData
+      .filter((category) => {
+        if (!uniqueImages.includes(category.poses[0].url_png)) {
+          uniqueImages.push(category.poses[0].url_png);
+          return true;
+        }
+        return false;
+      })
+      .filter((category) => {
+        if (
+          category.category_name !== 'Restorative Yoga' &&
+          category.category_name !== 'Balancing Yoga'
+        ) {
+          filteredCategories.push(category.category_name);
+          return true;
+        }
+        return false;
+      })
+      .map((category) => {
+        return `
+        <li>
+        <span class="category-name">${category.category_name}</span>
+        <div class="separate-class">
+        <p class="category-description">${category.category_description}</p>
+        <img src="${category.poses[0].url_png}" class="image-color-figures">
+        </div>
+        </li>
+      `;
+      })
+      .join('');
+    categories.innerHTML = categoriesArray;
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 export async function fetchAndPopulateSanskritAsanas(data) {
