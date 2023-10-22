@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './constants.js';
+import { API_BASE_URL, CATEGORIES_ID } from './constants.js';
 import { fetchJSON } from './api.js';
 import { initPage } from './pages/mainPage.js';
 import {
@@ -14,6 +14,8 @@ const loadApp = async () => {
     await fetchAndPopulateSanskritAsanas(data);
   } catch (error) {
     console.log(error);
+    const errorMessage = document.getElementById(CATEGORIES_ID);
+    errorMessage.textContent = `${error} Please try again later.`;
   }
 };
 
