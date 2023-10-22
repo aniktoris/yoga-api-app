@@ -26,10 +26,10 @@ export const createPageElement = () => {
     </div>
   </div>
   <div class="parent-suggestions">
-  <ul id="${SUGGESTION_ID}" class="suggestions">
-  <li></li>
-  </ul>
-  <p class="no-results"></p>
+    <ul id="${SUGGESTION_ID}" class="suggestions">
+      <li></li>
+    </ul>
+    <p class="no-results"></p>
   </div>
   `;
   return element;
