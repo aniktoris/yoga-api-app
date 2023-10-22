@@ -100,3 +100,53 @@ body{
 .no-results{
   margin: 20px;
 }
+
+@media (max-width:1024px) {
+  .categories-list {
+    margin: 10px; 
+    padding-left: 30px;
+    height: 40vh;
+  }
+
+  .description-image{
+    width: 130%;
+    height: auto;
+  }
+
+  .category-description{
+    display: none;
+  }
+
+  .category-name {
+    font-size: 13px;
+  }
+
+  .sanskrit-button{
+    font-size: 12px;
+  }
+
+  .select-dropdown{
+    font-size: 12px;
+  }
+
+  .search{
+    font-size: 12px;
+  }
+
+  .container-bars > *:nth-child(3) > input {
+    height: 80%;
+  }
+
+  .translation-div, .suggestions{
+    font-size: 14px;
+  }
+
+  .dropdown-image{
+    width: 150px;
+    height: 150px;
+  }
+
+  .suggestions{
+    font-size: 13px;
+  }
+}
