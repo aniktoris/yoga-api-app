@@ -10,6 +10,11 @@ body{
   background-color:  #ba7a68;
   border: none;
   color: white;
+  cursor: pointer;
+}
+
+.select-dropdown{
+  cursor: pointer;
 }
 
 .translation-div, .suggestions{
@@ -90,4 +95,8 @@ body{
   font-size: small;
   width: 70%;
   flex: 1;
+}
+
+.no-results{
+  margin: 20px;
 }

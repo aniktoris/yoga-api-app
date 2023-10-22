@@ -9,7 +9,7 @@ import {
 export async function fetchJSON(url) {
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error('Oops...stay calm as we encountered an error');
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }
   const jsonData = await response.json();
   console.log(jsonData);
@@ -145,6 +145,29 @@ function displayMatches(dataPoses) {
   const searchInput = document.getElementById(INPUT_ID);
   const suggestions = document.getElementById(SUGGESTION_ID);
 
+  const noResultsElement = document.querySelector('.no-results');
+  const parentSuggestionsElement = document.querySelector(
+    '.parent-suggestions'
+  );
+
+  function displayNoResults() {
+    noResultsElement.textContent = 'No results found';
+    parentSuggestionsElement.appendChild(noResultsElement);
+  }
+
+  function hideNoResults() {
+    const noResultsElement = document.querySelector('.no-results');
+    const parentSuggestionsElement = document.querySelector(
+      '.parent-suggestions'
+    );
+    if (
+      noResultsElement &&
+      parentSuggestionsElement.contains(noResultsElement)
+    ) {
+      parentSuggestionsElement.removeChild(noResultsElement);
+    }
+  }
+
   searchInput.addEventListener('input', () => {
     const typedWord = searchInput.value;
 
@@ -167,8 +190,10 @@ function displayMatches(dataPoses) {
     displayedInfoSearch = suggestions;
     displayedInfoSearch.innerHTML = resultsArray;
 
-    if (!typedWord) {
-      suggestions.innerHTML = '';
+    if (typedWord && matchArray.length === 0) {
+      displayNoResults();
+    } else {
+      hideNoResults();
     }
   });
 }
