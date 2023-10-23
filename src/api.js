@@ -4,6 +4,7 @@ import {
   INPUT_ID,
   SUGGESTION_ID,
   CATEGORIES_ID,
+  API_BASE_URL,
 } from './constants.js';
 
 export async function fetchJSON(url) {
@@ -79,7 +80,7 @@ export async function fetchAndPopulateSanskritAsanas(data) {
         optionElement.textContent = asana.sanskrit_name_adapted;
       });
       displayFromDropdown(dataPoses);
-      displayMatches(dataPoses);
+      displayMatches();
     } catch (error) {
       console.log(error);
     }
@@ -134,14 +135,19 @@ function displayFromDropdown(dataPoses) {
   });
 }
 
-function findMatches(dataPoses, typedWord) {
-  return dataPoses.filter((asana) => {
-    const regex = new RegExp(typedWord, 'gi');
-    return asana.english_name.match(regex);
-  });
+async function findMatches(typedWord) {
+  const response = await fetch(`${API_BASE_URL}/poses?name=${typedWord}`);
+  if (!response.ok) {
+    if (response.status === 404) {
+      return { error: 'No results found' };
+    }
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
+  const dataPose = await response.json();
+  return dataPose;
 }
 
-function displayMatches(dataPoses) {
+function displayMatches() {
   const searchInput = document.getElementById(INPUT_ID);
   const suggestions = document.getElementById(SUGGESTION_ID);
 
@@ -168,32 +174,40 @@ function displayMatches(dataPoses) {
     }
   }
 
-  searchInput.addEventListener('input', () => {
-    const typedWord = searchInput.value;
+  searchInput.addEventListener('keydown', async (event) => {
+    if (event.key === 'Enter') {
+      const typedWord = searchInput.value;
 
-    const matchArray = findMatches(dataPoses, typedWord);
-    const resultsArray = matchArray
-      .map((asana) => {
-        return `
-        <li>
-        <span>${asana.english_name}. ${asana.pose_description}</span>
-        <img src="${asana.url_svg_alt}" class="image-black-figures">
-        </li>
-      `;
-      })
-      .join('');
+      try {
+        const matches = await findMatches(typedWord);
+        let resultMatches = '';
 
-    if (displayedInfoDropDown) {
-      displayedInfoDropDown.remove();
-    }
+        if (matches.error) {
+          displayNoResults();
+        } else {
+          resultMatches = `
+            <li>
+              <span>${matches.english_name}. ${matches.pose_description}</span>
+              <img src="${matches.url_svg_alt}" class="image-black-figures">
+            </li>
+          `;
+        }
 
-    displayedInfoSearch = suggestions;
-    displayedInfoSearch.innerHTML = resultsArray;
+        if (displayedInfoDropDown) {
+          displayedInfoDropDown.remove();
+        }
 
-    if (typedWord && matchArray.length === 0) {
-      displayNoResults();
-    } else {
-      hideNoResults();
+        displayedInfoSearch = suggestions;
+        displayedInfoSearch.innerHTML = resultMatches;
+
+        if (typedWord && resultMatches === '') {
+          displayNoResults();
+        } else {
+          hideNoResults();
+        }
+      } catch (error) {
+        console.error(`An error occurred: ${error.message}`);
+      }
     }
   });
 }
