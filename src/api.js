@@ -1,5 +1,4 @@
 import {
-  SANSKRIT_NAMES_BUTTON_ID,
   SELECT_ID,
   INPUT_ID,
   SUGGESTION_ID,
@@ -61,30 +60,24 @@ export async function fetchAndDisplayCategories(data) {
 }
 
 export async function fetchAndPopulateSanskritAsanas(data) {
-  const sanskritButtonElement = document.getElementById(
-    SANSKRIT_NAMES_BUTTON_ID
-  );
-
   const selectElement = document.getElementById(SELECT_ID);
 
-  sanskritButtonElement.addEventListener('click', async () => {
-    selectElement.style.width = 'auto';
+  selectElement.style.width = 'auto';
 
-    try {
-      const dataPoses = await fetchJSON(data.poses);
+  try {
+    const dataPoses = await fetchJSON(data.poses);
 
-      dataPoses.forEach((asana) => {
-        const optionElement = document.createElement('option');
-        optionElement.setAttribute('value', asana.translation_name);
-        selectElement.appendChild(optionElement);
-        optionElement.textContent = asana.sanskrit_name_adapted;
-      });
-      displayFromDropdown(dataPoses);
-      displayMatches();
-    } catch (error) {
-      console.log(error);
-    }
-  });
+    dataPoses.forEach((asana) => {
+      const optionElement = document.createElement('option');
+      optionElement.setAttribute('value', asana.translation_name);
+      selectElement.appendChild(optionElement);
+      optionElement.textContent = asana.sanskrit_name_adapted;
+    });
+    displayFromDropdown(dataPoses);
+    displayMatches();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 let displayedInfoDropDown = null;
