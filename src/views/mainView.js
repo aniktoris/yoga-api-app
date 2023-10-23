@@ -20,14 +20,11 @@ export const createPageElement = () => {
         Get Started with Yoga Bliss! 
       </button>
       <select id="${SELECT_ID}" class="select-dropdown"></select>
-      <form class="search-form">
-        <input id="${INPUT_ID}" type="text" class="search" placeholder="Search for yoga asana..." value="">  
-      </form>
+      <input id="${INPUT_ID}" type="text" class="search" placeholder="Search for yoga asana..." value="">  
     </div>
   </div>
   <div class="parent-suggestions">
     <ul id="${SUGGESTION_ID}" class="suggestions">
-      <li></li>
     </ul>
     <p class="no-results"></p>
   </div>
