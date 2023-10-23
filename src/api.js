@@ -1,10 +1,4 @@
-import {
-  SELECT_ID,
-  INPUT_ID,
-  SUGGESTION_ID,
-  CATEGORIES_ID,
-  API_BASE_URL,
-} from './constants.js';
+import { API_BASE_URL } from './constants.js';
 
 export async function fetchJSON(url) {
   const response = await fetch(url);
@@ -17,7 +11,7 @@ export async function fetchJSON(url) {
 }
 
 export async function fetchAndDisplayCategories(data) {
-  const categories = document.getElementById(CATEGORIES_ID);
+  const categories = document.getElementById('category');
   const uniqueImages = [];
   const filteredCategories = [];
 
@@ -60,7 +54,7 @@ export async function fetchAndDisplayCategories(data) {
 }
 
 export async function fetchAndPopulateSanskritAsanas(data) {
-  const selectElement = document.getElementById(SELECT_ID);
+  const selectElement = document.getElementById('mySelect');
 
   selectElement.style.width = 'auto';
 
@@ -69,7 +63,7 @@ export async function fetchAndPopulateSanskritAsanas(data) {
 
     dataPoses.forEach((asana) => {
       const optionElement = document.createElement('option');
-      optionElement.setAttribute('value', asana.translation_name);
+      optionElement.setAttribute('value', asana.english_name);
       selectElement.appendChild(optionElement);
       optionElement.textContent = asana.sanskrit_name_adapted;
     });
@@ -84,7 +78,7 @@ let displayedInfoDropDown = null;
 let displayedInfoSearch = null;
 
 function displayFromDropdown(dataPoses) {
-  const selectElement = document.getElementById(SELECT_ID);
+  const selectElement = document.getElementById('mySelect');
 
   selectElement.addEventListener('change', () => {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -102,7 +96,7 @@ function displayFromDropdown(dataPoses) {
       translation.textContent = `Translation name: ${selectedTranslation}`;
 
       const selectedAsana = dataPoses.find(
-        (asana) => asana.translation_name === selectedTranslation
+        (asana) => asana.english_name === selectedTranslation
       );
 
       const poseBenefits = document.createElement('p');
@@ -141,8 +135,8 @@ async function findMatches(typedWord) {
 }
 
 function displayMatches() {
-  const searchInput = document.getElementById(INPUT_ID);
-  const suggestions = document.getElementById(SUGGESTION_ID);
+  const searchInput = document.getElementById('userInput');
+  const suggestions = document.getElementById('suggestion');
 
   const noResultsElement = document.querySelector('.no-results');
   const parentSuggestionsElement = document.querySelector(
