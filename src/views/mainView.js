@@ -1,5 +1,4 @@
 import {
-  SANSKRIT_NAMES_BUTTON_ID,
   SELECT_ID,
   INPUT_ID,
   SUGGESTION_ID,
@@ -16,9 +15,6 @@ export const createPageElement = () => {
   </div>
   <div class="parent-container">
     <div class="container-bars">
-      <button id="${SANSKRIT_NAMES_BUTTON_ID}" class="sanskrit-button"> 
-        Get Started with Yoga Bliss! 
-      </button>
       <select id="${SELECT_ID}" class="select-dropdown"></select>
       <input id="${INPUT_ID}" type="text" class="search" placeholder="Search for yoga asana..." value="">  
     </div>

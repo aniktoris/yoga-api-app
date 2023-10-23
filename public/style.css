@@ -6,13 +6,6 @@ body{
   background-color:  #f3e7de;
 }
 
-.sanskrit-button{
-  background-color:  #ba7a68;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
 .select-dropdown{
   cursor: pointer;
 }
@@ -119,10 +112,6 @@ body{
 
   .category-name {
     font-size: 13px;
-  }
-
-  .sanskrit-button{
-    font-size: 12px;
   }
 
   .select-dropdown{
