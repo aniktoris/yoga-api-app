@@ -56,16 +56,14 @@ export async function fetchAndDisplayCategories(data) {
 export async function fetchAndPopulateSanskritAsanas(data) {
   const selectElement = document.getElementById('mySelect');
 
-  selectElement.style.width = 'auto';
-
   try {
     const dataPoses = await fetchJSON(data.poses);
 
     dataPoses.forEach((asana) => {
       const optionElement = document.createElement('option');
       optionElement.setAttribute('value', asana.english_name);
-      selectElement.appendChild(optionElement);
       optionElement.textContent = asana.sanskrit_name_adapted;
+      selectElement.appendChild(optionElement);
     });
     displayFromDropdown(dataPoses);
     displayMatches();
@@ -94,6 +92,7 @@ function displayFromDropdown(dataPoses) {
 
       const translation = document.createElement('p');
       translation.textContent = `Translation name: ${selectedTranslation}`;
+      translation.classList.add('translation-name');
 
       const selectedAsana = dataPoses.find(
         (asana) => asana.english_name === selectedTranslation

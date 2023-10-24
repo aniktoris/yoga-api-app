@@ -8,6 +8,12 @@ body{
 
 .select-dropdown{
   cursor: pointer;
+  font-size: 20px;
+  width: auto;
+}
+
+.search{
+  font-size: 20px;
 }
 
 .translation-div, .suggestions{
@@ -16,12 +22,19 @@ body{
   margin: 20px;
   border-radius: 30px;
   display: flex;
-  padding: 10px;
+  padding-left: 80px;
+  padding-right: 80px;
   max-width: 100%;
+  font-size: 20px;
+}
+
+.translation-name{
+  font-weight: bold;
 }
 
 .suggestions{
   flex-wrap: wrap;
+  padding-top: 20px;
 }
 
 .pose-benefits{
@@ -37,13 +50,14 @@ body{
   display: inline-flex;
   justify-content: center;
   align-items: stretch;
-  border: 3px solid rgba(0,0,0,0.1);
+  border: 3px solid rgba(0,0,0,0.3);
   border-radius: 5px;
+  font-size: large;
 }
 
 .dropdown-image{
-  width: 40vh;
-  height: 40vh;
+  width: 30vh;
+  height: 30vh;
 }
 
 .suggestions li{
@@ -68,7 +82,8 @@ body{
   flex-wrap: wrap;
   justify-content: space-between;
   flex-direction: row;
-  padding-left: 5px;
+  padding: 10px;
+  padding-left: 20px;
   margin: 20px;
   background-color:  #d0d5d2;
   border-radius: 30px;
@@ -84,8 +99,13 @@ body{
   display: flex;
 }
 
+.category-name{
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .category-description{
-  font-size: small;
+  font-size: 18px;
   width: 70%;
   flex: 1;
 }
@@ -94,16 +114,18 @@ body{
   margin: 20px;
 }
 
-@media (max-width:1024px) {
+@media (max-width:1400px) {
   .categories-list {
     margin: 10px; 
-    padding-left: 30px;
-    height: 40vh;
+    padding-left: 140px;
+    padding-top: 80px;
+    height: 50vh;
   }
 
   .description-image{
     width: 130%;
     height: auto;
+    padding-top: 20px;
   }
 
   .category-description{
@@ -111,15 +133,15 @@ body{
   }
 
   .category-name {
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .select-dropdown{
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .search{
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .container-bars > *:nth-child(3) {
@@ -128,6 +150,11 @@ body{
 
   .translation-div, .suggestions{
     font-size: 14px;
+  }
+
+  .translation-name{
+    padding-right: 40px;
+    font-weight: bold;
   }
 
   .dropdown-image{
