@@ -72,24 +72,15 @@ export async function fetchAndPopulateSanskritAsanas(data) {
   }
 }
 
-let displayedInfoDropDown = null;
-let displayedInfoSearch = null;
-
 function displayFromDropdown(dataPoses) {
   const selectElement = document.getElementById('mySelect');
+  const translationDiv = document.getElementById('results-container');
 
   selectElement.addEventListener('change', () => {
     const selectedOption = selectElement.options[selectElement.selectedIndex];
     const selectedTranslation = selectedOption.value;
 
     if (selectedTranslation) {
-      if (displayedInfoDropDown) {
-        displayedInfoDropDown.remove();
-      }
-
-      const translationDiv = document.createElement('div');
-      translationDiv.classList.add('translation-div');
-
       const translation = document.createElement('p');
       translation.textContent = `Translation name: ${selectedTranslation}`;
       translation.classList.add('translation-name');
@@ -106,17 +97,11 @@ function displayFromDropdown(dataPoses) {
       poseImage.setAttribute('src', selectedAsana.url_svg);
       poseImage.classList.add('dropdown-image');
 
+      translationDiv.innerHTML = '';
+
       translationDiv.appendChild(translation);
       translationDiv.appendChild(poseBenefits);
       translationDiv.appendChild(poseImage);
-
-      document.body.appendChild(translationDiv);
-
-      if (displayedInfoSearch) {
-        displayedInfoSearch.remove();
-      }
-
-      displayedInfoDropDown = translationDiv;
     }
   });
 }
@@ -135,28 +120,23 @@ async function findMatches(typedWord) {
 
 function displayMatches() {
   const searchInput = document.getElementById('userInput');
-  const suggestions = document.getElementById('suggestion');
 
-  const noResultsElement = document.querySelector('.no-results');
-  const parentSuggestionsElement = document.querySelector(
-    '.parent-suggestions'
-  );
+  const translationDiv = document.getElementById('results-container');
+
+  const noResultsElement = document.createElement('p');
+  noResultsElement.classList.add('no-results');
+  translationDiv.appendChild(noResultsElement);
 
   function displayNoResults() {
     noResultsElement.textContent = 'No results found';
-    parentSuggestionsElement.appendChild(noResultsElement);
+    translationDiv.appendChild(noResultsElement);
   }
 
   function hideNoResults() {
     const noResultsElement = document.querySelector('.no-results');
-    const parentSuggestionsElement = document.querySelector(
-      '.parent-suggestions'
-    );
-    if (
-      noResultsElement &&
-      parentSuggestionsElement.contains(noResultsElement)
-    ) {
-      parentSuggestionsElement.removeChild(noResultsElement);
+    const translationDiv = document.querySelector('.parent-suggestions');
+    if (noResultsElement && translationDiv.contains(noResultsElement)) {
+      translationDiv.removeChild(noResultsElement);
     }
   }
 
@@ -172,19 +152,14 @@ function displayMatches() {
           displayNoResults();
         } else {
           resultMatches = `
-            <li>
+            <li class='suggestion-result'>
               <span>${matches.english_name}. ${matches.pose_description}</span>
               <img src="${matches.url_svg_alt}" class="image-black-figures">
             </li>
           `;
         }
 
-        if (displayedInfoDropDown) {
-          displayedInfoDropDown.remove();
-        }
-
-        displayedInfoSearch = suggestions;
-        displayedInfoSearch.innerHTML = resultMatches;
+        translationDiv.innerHTML = resultMatches;
 
         if (typedWord && resultMatches === '') {
           displayNoResults();
