@@ -60,8 +60,9 @@ body{
   height: 30vh;
 }
 
-.suggestions li{
+.suggestion-result{
   list-style: none;
+  padding-top: 30px;
 }
 
 .image-black-figures{
